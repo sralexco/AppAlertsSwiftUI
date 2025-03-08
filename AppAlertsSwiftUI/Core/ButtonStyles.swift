@@ -20,12 +20,12 @@ struct CustomButtonStyle: ButtonStyle {
             return configuration.label
                 .frame(maxWidth: .infinity)
                 .frame(height: 60)
-                .background(.green)
+                .background(Color.blue1)
                 .foregroundColor(.white)
-                .font(.system(size: 18, weight: .bold))
-                .cornerRadius(20)
-                .opacity(configuration.isPressed ? 0.7 : 1.0)
+                .font(.system(size: 16, weight: .medium))
+                .cornerRadius(12)
                 .padding(.horizontal, 20)
+                .opacity(configuration.isPressed ? 0.7 : 1.0)
         }
     }
 }
