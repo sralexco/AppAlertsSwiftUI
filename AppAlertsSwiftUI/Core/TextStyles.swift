@@ -9,6 +9,8 @@ import SwiftUI
 
 enum TextType {
     case primary
+    case textfield
+    case placeholder
 }
 
 struct CustomTextStyle: ViewModifier {
@@ -18,8 +20,19 @@ struct CustomTextStyle: ViewModifier {
         switch type {
         case .primary:
             content
-                .font(.system(size: 40, weight: .bold))
-                .foregroundColor(.white)
+            .font(.system(size: 40, weight: .bold))
+            .foregroundColor(.white)
+        case .textfield:
+            content
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .font(.system(size: 16, weight: .regular))
+            .foregroundColor(.black1)
+        case .placeholder:
+            content
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .font(.system(size: 16, weight: .regular))
+            .foregroundColor(.gray)
+            .opacity(0.5)
         }
     }
 }
