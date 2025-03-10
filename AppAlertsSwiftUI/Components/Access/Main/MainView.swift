@@ -17,28 +17,32 @@ struct MainView: View {
     //@StateObject var VM = MainViewModel()
     var body: some View {
         NavigationStack(path: $path) {
-        VStack {
-            Text("Alertize")
-                .customStyle(.primary)
-                .padding(.top, 100)
-            Spacer()
-            Button(action: loginAction,
-                   label: { Text("LOGIN") })
-                .customStyle(.primary)
-            Button(action: regiterAction,
-                   label: { Text("REGISTER") })
-                .customStyle(.primary)
-                .padding(.top, 20)
-        }
-        .background(.green)
-        .navigationTitle("")
-        .navigationDestination(for: RouteMain.self) { route in
+        ZStack {
+            BgdFullScreenVideoView(videoName: "intro").zIndex(1)
+            VStack {
+                Text("Alertize")
+                    .customStyle(.primary)
+                    .padding(.top, 100)
+                Spacer()
+                Button(action: loginAction,
+                       label: { Text("LOGIN") })
+                    .customStyle(.primary)
+                Button(action: regiterAction,
+                       label: { Text("REGISTER") })
+                    .customStyle(.primary)
+                    .padding(.top, 20)
+            }
+            .background(.clear)
+            .navigationTitle("")
+            .navigationDestination(for: RouteMain.self) { route in
                 switch route {
                 case .login:
                     LoginView(path: $path)
                 case .register:
                     RegisterView(path: $path)
                 }
+            }
+            .zIndex(2)
             }
         }
     }
