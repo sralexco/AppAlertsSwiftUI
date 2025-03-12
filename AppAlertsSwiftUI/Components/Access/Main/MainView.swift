@@ -14,7 +14,7 @@ enum RouteMain: Hashable {
 
 struct MainView: View {
     @State private var path = [RouteMain]()
-    //@StateObject var VM = MainViewModel()
+   
     var body: some View {
         NavigationStack(path: $path) {
         ZStack {
