@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct LoginView: View {
-    @State var email: String = ""
-    @State var passError: Bool = false
     @StateObject var VM = LoginViewModel()
     @Binding var path: [RouteMain]
+    
     var body: some View {
         VStack {
             FloatingTextField(title: "Email", text: $VM.email, isError: $VM.emailError, keyboardType: .emailAddress)
@@ -25,8 +24,13 @@ struct LoginView: View {
             Spacer()
         }
         .navigationTitle("Login")
+        .alert(item: $VM.activeAlert) { alertItem in alertItem.alert }
+        .loadingView(show: $VM.isLoading)
     }
-    private func loginAction(){ print("Act") }
+    private func loginAction() {
+        VM.getLogin()
+    }
+    
 }
 
 /*

@@ -8,6 +8,14 @@
 import Foundation
 
 struct LoginModel: Codable {
-    var status: Int?
+    var id: Int?
+    var email: String?
+    var token: TokenLoginModel?
+    var status: Bool
     var message: String?
+    var idError: Int?
+}
+
+struct TokenLoginModel: Codable {
+    var token: String = ""
 }
