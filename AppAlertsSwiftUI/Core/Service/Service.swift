@@ -30,72 +30,64 @@ struct ServiceError: LocalizedError {
 
 class Service {
     
-    func request<T>(url: String, method: HTTPMethod, params: Params? = nil)
-            -> AnyPublisher<DataResponse<T, Error>, Never> where T: Codable {
-        let token = UserDefaults.standard.string(forKey: "token") ?? ""
-        let headers: HTTPHeaders = [
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + token
-        ]
+    func request<T: Decodable>(url: String, method: HTTPMethod, params: Params? = nil) async throws -> T {
+          let token = UserDefaults.standard.string(forKey: "token") ?? ""
+          let headers: HTTPHeaders = [
+              "Accept": "application/json",
+              "Content-Type": "application/json",
+              "Authorization": "Bearer \(token)"
+          ]
+        
         // Debug
         /*print(url)
         print(params?.description)
         print(method) */
-        
-        let encoding: ParameterEncoding! = JSONEncoding.default
-        
-        return AF.request(url,
-                          method: method,
-                          parameters: params,
-                          encoding: encoding,
-                          headers: headers)
-            .validate()
-            .publishDecodable(type: T.self)
-            .map { response in
-                response.mapError { error in
-                    // Debug
-                    print("ERROR")
-                    print(error)
-                    print(error.localizedDescription)
-                    return ServiceError("Connection error, please try again later.")
-                }
-            }
-            .receive(on: DispatchQueue.main)
-            .eraseToAnyPublisher()
-    }
-    
-    func requestNoToken<T>(url: String, method: HTTPMethod, params: Params? = nil)
-            -> AnyPublisher<DataResponse<T, Error>, Never> where T: Codable {
-        let headers: HTTPHeaders = [
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-        ]
-        // Debug
-        /* print(url)
-        print(params?.description)
-        print(method) */
-        
-        let encoding: ParameterEncoding! = JSONEncoding.default
-        
-        return AF.request(url,
-                          method: method,
-                          parameters: params,
-                          encoding: encoding,
-                          headers: headers)
-            .validate()
-            .publishDecodable(type: T.self)
-            .map { response in
-                response.mapError { error in
-                    // Debug
-                    print("ERROR")
-                    print(error)
-                    print(error.localizedDescription)
-                    return ServiceError("Connection error, please try again later.")
-                }
-            }
-            .receive(on: DispatchQueue.main)
-            .eraseToAnyPublisher()
-    }
+          
+          return try await withCheckedThrowingContinuation { continuation in
+              AF.request(url,
+                         method: method,
+                         parameters: params,
+                         encoding: JSONEncoding.default,
+                         headers: headers)
+                  .validate()
+                  .responseDecodable(of: T.self) { response in
+                      switch response.result {
+                      case .success(let value):
+                          continuation.resume(returning: value)
+                      case .failure(let error):
+                          continuation.resume(throwing: ServiceError(error.localizedDescription))
+                      }
+                  }
+          }
+      }
+      
+      func requestNoToken<T: Decodable>(url: String, method: HTTPMethod, params: Params? = nil) async throws -> T {
+          let headers: HTTPHeaders = [
+              "Accept": "application/json",
+              "Content-Type": "application/json"
+          ]
+          
+          // Debug
+          /*print(url)
+          print(params?.description)
+          print(method) */
+          
+          return try await withCheckedThrowingContinuation { continuation in
+              AF.request(url,
+                         method: method,
+                         parameters: params,
+                         encoding: JSONEncoding.default,
+                         headers: headers)
+                  .validate()
+                  .responseDecodable(of: T.self) { response in
+                      switch response.result {
+                      case .success(let value):
+                          continuation.resume(returning: value)
+                      case .failure(let error):
+                          continuation.resume(throwing: ServiceError(error.localizedDescription))
+                      }
+                  }
+          }
+      }
     
 }

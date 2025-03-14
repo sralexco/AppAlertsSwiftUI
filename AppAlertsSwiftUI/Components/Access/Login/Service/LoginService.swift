@@ -10,19 +10,17 @@ import Combine
 import Alamofire
 
 protocol LoginServiceProtocol {
-    func getLogin(email: String, pass: String) -> AnyPublisher<DataResponse<LoginModel, Error>, Never>
+    func getLogin(email: String, pass: String) async throws -> LoginModel
 }
 
-class LoginService {
+class LoginService: LoginServiceProtocol {
     static let shared: LoginServiceProtocol = LoginService()
-}
-
-extension LoginService: LoginServiceProtocol {
-    func getLogin(email: String, pass: String) -> AnyPublisher<DataResponse<LoginModel, Error>, Never> {
+    
+    func getLogin(email: String, pass: String) async throws -> LoginModel {
         let url = AppURL.login
         let params = LoginRequest(email: email, passs: pass).params()
-        return Service().requestNoToken(url: url, method: .post, params: params)
-    }
+        return try await Service().requestNoToken(url: url, method: .post, params: params)
+   }
 }
 
 struct LoginRequest: RequestParams {
