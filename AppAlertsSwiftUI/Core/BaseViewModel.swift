@@ -11,12 +11,12 @@ import Combine
 class BaseViewModel: ObservableObject {
     @Published var activeAlert: AlertItem?
     
-    func showAlert(title: String, message: String) {
+    func showAlert(title: String, message: String, action: (() -> Void)? = nil) {
         activeAlert = AlertItem(
                   alert: Alert(
                       title: Text(title),
                       message: Text(message),
-                      dismissButton: .default(Text("OK"))
+                      dismissButton: .default(Text("OK"), action: action)
                   )
        )
     }

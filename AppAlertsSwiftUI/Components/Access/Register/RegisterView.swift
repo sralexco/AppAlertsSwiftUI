@@ -50,9 +50,16 @@ struct RegisterView: View {
             Spacer()
         }
         .navigationTitle("Register")
+        .alert(item: $VM.activeAlert) { alertItem in alertItem.alert }
+        .loadingView(show: $VM.isLoading)
+        .onAppear {
+           VM.goBack = { path.removeLast() }
+        }
     }
     
-    private func registerAction() { print("Error") }
+    private func registerAction() {
+        VM.sendRegister()
+    }
     
 }
 

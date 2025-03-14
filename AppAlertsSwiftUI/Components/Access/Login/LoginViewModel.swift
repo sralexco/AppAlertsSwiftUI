@@ -14,10 +14,7 @@ class LoginViewModel: BaseViewModel {
     @Published var emailError: Bool = false
     @Published var pass: String = ""
     @Published var passError: Bool = false
-    
     @Published var isLoading = false
-    
-    private var cancellableSet: Set<AnyCancellable> = []
     var service: LoginServiceProtocol
     
     init(service: LoginServiceProtocol = LoginService.shared) {
@@ -38,22 +35,27 @@ class LoginViewModel: BaseViewModel {
     func getLogin() {
         guard validateInputs() else { return }
         isLoading = true
-        service.getLogin(email: email, pass: pass)
-        .sink { (dataResponse) in
-            self.isLoading = false
-            if let error = dataResponse.error {
-                return self.showAlert(title: "Error", message: error.localizedDescription) }
-            self.getLoginHandle(obj: dataResponse.value!)
-        }.store(in: &cancellableSet)
-    }
-    
-    func getLoginHandle(obj: LoginModel) {
-        if obj.status {
-            print("InViewModel")
-            print("email", obj.email!)
-            print("token", obj.token?.token)
-        } else {
-            showAlert(title: "Success", message: "Invalid username and password Please try again")
+        Task {
+        do {
+            let obj = try await service.getLogin(email: email, pass: pass)
+            await MainActor.run {
+                if obj.status {
+                    let token = obj.token?.token ?? ""
+                    let idUser = obj.id ?? -1
+                    UserDefaults.standard.set(token, forKey: "token")
+                    UserDefaults.standard.set(idUser, forKey: "idUser")
+                    UserDefaults.standard.set(true, forKey: "access")
+                } else {
+                    showAlert(title: "Success", message: "Invalid username and password Please try again")
+                }
+                isLoading = false
+            }
+        } catch {
+            await MainActor.run {
+                showAlert(title: "Error", message: error.localizedDescription)
+                isLoading = false
+            }
+        }
         }
     }
 }

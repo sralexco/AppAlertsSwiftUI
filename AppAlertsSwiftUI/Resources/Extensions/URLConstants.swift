@@ -23,7 +23,7 @@ struct AppURL {
     private static let BaseURL = Domain + Route
     
     static let login = BaseURL + "login"
-    static let register = BaseURL + "user/create"
+    static let register = BaseURL + "register"
     
     /*
     static let alerts = BaseURL + "alert/list"
