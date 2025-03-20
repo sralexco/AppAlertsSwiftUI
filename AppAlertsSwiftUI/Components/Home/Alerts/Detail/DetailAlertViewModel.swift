@@ -24,6 +24,7 @@ class DetailAlertViewModel: BaseViewModel {
     }
     
     func requestGetAlert() {
+        print("requestGetAlert")
         isLoading = true
         Task {
         do {

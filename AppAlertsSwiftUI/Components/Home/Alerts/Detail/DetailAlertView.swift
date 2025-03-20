@@ -13,7 +13,11 @@ struct DetailAlertView: View {
     @StateObject var VM = DetailAlertViewModel()
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(spacing: 0) {
+            NavigationBar(title: title, showLeft: true, showRight: false, imgLeft: "ic_nvBack",
+                          callbackLeft: { path.removeLast() })
+                .frame(height: 60)
+            
             ScrollView {
                 VStack(alignment: .leading) {
                     Text(VM.title)
@@ -43,14 +47,14 @@ struct DetailAlertView: View {
                     }
                     .padding(.bottom, 20)
                     .frame(maxWidth: .infinity)
-                    Spacer().frame(height: 0)
+                    Spacer()
                 }
                 .frame(maxWidth: .infinity)
                 .background(.white)
                 .padding([.leading, .trailing], 20)
             }
             .padding(.top, 10)
-            Spacer().frame(height: 0)
+            Spacer()
         }
         .background(Color.blue1.opacity(0.20))
         .onAppear {
@@ -59,8 +63,7 @@ struct DetailAlertView: View {
             VM.id = self.alertID
             VM.requestGetAlert()
         }
-        .navigationTitle("Detail")
-        //.navigationBarHidden(true)
+        .navigationBarHidden(true)
         .alert(item: $VM.activeAlert) { alertItem in alertItem.alert }
         .loadingView(show: $VM.isLoading)
         

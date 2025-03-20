@@ -68,6 +68,9 @@ class AlertsViewModel: BaseViewModel {
                 if obj.status {
                     isEmpty = obj.alerts?.count == 0 ? true : false
                     items = obj.alerts ?? []
+                    for i in 0...10 {
+                        items += obj.alerts ?? []
+                    }
                     print("alerts", obj.alerts)
                 } else {
                     showAlert(title: "Error", message: "Try again more Later")
