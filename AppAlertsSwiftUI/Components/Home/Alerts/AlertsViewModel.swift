@@ -5,54 +5,83 @@
 //  Created by alex on 13/03/25.
 //
 
-import Foundation
-import Combine
 import SwiftUI
+import CoreLocation
+import Combine
 
 class AlertsViewModel: BaseViewModel {
-    @Published var items = [Alert_GetAlertsModel]()
-    var service: AlertsServiceProtocol
-    @Published var alertSelected: Alert_GetAlertsModel?
+    @Published var items = [AlertModel]()
+   
     @Published var isLoading: Bool = false
-    @Published var showAlert: Bool = false
-    @Published var messageError: String = ""
     @Published var isEmpty: Bool = false
     @Published var isLocationEnabled: Bool = false
-    private var cancellableSet: Set<AnyCancellable> = []
+   
+    @Published var authorizationStatus: CLAuthorizationStatus = .notDetermined
     
-    @StateObject var locationManager = LocationManager()
+    @Published var locationManager: LocationManager = LocationManager()
+    private var service: AlertsServiceProtocol
+    private var cancellables = Set<AnyCancellable>()
     
-    init(service: AlertsServiceProtocol = AlertsService.shared) {
+    init(locationManager: LocationManager = LocationManager(), service: AlertsServiceProtocol = AlertsService.shared) {
+        self.locationManager = locationManager
         self.service = service
+        super.init()
+        self.authorizationStatus = self.locationManager.authorizationStatus ?? .notDetermined
+        setupAuthorizationListener()
     }
     
-    func sendGetAlerts(){
-        isLoading = true
-        let date = Date().getFormattedDate(format: "yyyy-MM-dd")
-        let latitude:Double = locationManager.manager.location?.coordinate.latitude ?? 0.0
-        let longitude:Double = locationManager.manager.location?.coordinate.longitude ?? 0.0
-        let request = GetAlertsRequest(lat: latitude,
-                                       lon: longitude,
-                                       date: date)
-       /* service.getAlerts(data: request)
-            .sink { (dataResponse) in
-                print(dataResponse)
-                self.isLoading = false
-                guard dataResponse.error == nil else {
-                    return self.showAlertService(with: dataResponse.error!) }
-                self.getAlertsSuccess(obj:dataResponse.value!)
-            }.store(in: &cancellableSet)
-        if obj.status == 0 {
-            items = obj.res!
-            if items.count == 0 { isEmpty = true } else {
-                isEmpty = false
+    // Authorization
+    func setupAuthorizationListener() {
+        locationManager.$authorizationStatus
+        .sink { [weak self] status in
+            if status == .authorizedWhenInUse {
+                self?.isLocationEnabled = true
+                self?.sendListAlerts()
             }
-        } else {
-            showAlertService(with: ServiceError("Invalid username and password Please try again"))
         }
-        
-        */
+        .store(in: &cancellables)
     }
-  
+    
+    func getAuthorizationLocation() {
+        _ = locationManager.manager.authorizationStatus
+    }
+    
+    // Service
+    func sendListAlerts() {
+        isLoading = true
+       // let date = Date().getFormattedDate(format: "yyyy-MM-dd")
+        //let lat: String = "\(locationManager.manager.location?.coordinate.latitude ?? 0.0)"
+        //let lon: String = "\(locationManager.manager.location?.coordinate.longitude ?? 0.0)"
+        let lat: String = "-11.9431"
+        let lon: String = "-76.9861"
+        let date: String = "2025-03-19T01:15:27.000Z"
+        
+        print("latitudes")
+        print("lat", lat)
+        print("lon", lon)
+        print("date",date)
+        
+        
+        Task {
+        do {
+            let obj = try await service.listAlerts(lat: lat, lon: lon, date: date)
+            await MainActor.run {
+                if obj.status {
+                    isEmpty = obj.alerts?.count == 0 ? true : false
+                    items = obj.alerts ?? []
+                    print("alerts", obj.alerts)
+                } else {
+                    showAlert(title: "Error", message: "Try again more Later")
+                }
+                isLoading = false
+            }
+        } catch {
+            await MainActor.run {
+                showAlert(title: "Error", message: error.localizedDescription)
+                isLoading = false
+            }
+        }
+        }
+    }
     
 }

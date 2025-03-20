@@ -25,6 +25,10 @@ struct AppURL {
     static let login = BaseURL + "login"
     static let register = BaseURL + "register"
     
+    
+    static let listAlerts = BaseURL + "alert/list"
+    static let myAlerts = BaseURL + "alert/mylist"
+    
     /*
     static let alerts = BaseURL + "alert/list"
     

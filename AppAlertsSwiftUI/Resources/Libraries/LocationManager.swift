@@ -28,21 +28,13 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         case .authorizedWhenInUse:
             authorizationStatus = .authorizedWhenInUse
             manager.requestLocation()
-            break
-            
         case .restricted:
             authorizationStatus = .restricted
-            break
-            
         case .denied:
             authorizationStatus = .denied
-            break
-            
         case .notDetermined:
             authorizationStatus = .notDetermined
             manager.requestWhenInUseAuthorization()
-            break
-            
         default:
             break
         }
