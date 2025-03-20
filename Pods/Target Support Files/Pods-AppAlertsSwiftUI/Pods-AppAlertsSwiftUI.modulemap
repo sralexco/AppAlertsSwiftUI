@@ -1,0 +1,6 @@
+framework module Pods_AppAlertsSwiftUI {
+  umbrella header "Pods-AppAlertsSwiftUI-umbrella.h"
+
+  export *
+  module * { export * }
+}

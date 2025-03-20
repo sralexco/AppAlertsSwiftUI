@@ -11,6 +11,8 @@ enum TextType {
     case primary
     case textfield
     case placeholder
+    case primary2
+    case title
 }
 
 struct CustomTextStyle: ViewModifier {
@@ -33,6 +35,16 @@ struct CustomTextStyle: ViewModifier {
             .font(.system(size: 16, weight: .regular))
             .foregroundColor(.gray)
             .opacity(0.5)
+        case .primary2:
+            content
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .font(.system(size: 16, weight: .regular))
+            .foregroundColor(.gray)
+        case .title:
+            content
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .font(.system(size: 18, weight: .medium))
+            .foregroundColor(.blue1)
         }
     }
 }

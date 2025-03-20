@@ -85,11 +85,11 @@ struct FloatingTextField: View {
 
 struct FloatingTextFieldAlter<Content: View>: View {
     var title: String
-    @Binding var isError : Bool
-    var requireValidation : Bool = true
+    @Binding var isError: Bool
+    var requireValidation: Bool = true
     var content: () -> Content
     
-    init(title: String,isError:Binding<Bool>, @ViewBuilder content: @escaping () -> Content) {
+    init(title: String, isError: Binding<Bool>, @ViewBuilder content: @escaping () -> Content) {
           self.title = title
           self._isError = isError
           self.content = content

@@ -40,7 +40,8 @@ struct RegisterView: View {
                 }
             })
                 .padding(.init(top: 10, leading: 20, bottom: 0, trailing: 20 ))
-            FloatingTextField(title: "Phone", text: $VM.phone, isError: $VM.phoneError, keyboardType: .numberPad, isNumber: true)
+            FloatingTextField(title: "Phone", text: $VM.phone, isError: $VM.phoneError, keyboardType: .numberPad,
+                              isNumber: true)
                 .padding(.init(top: 10, leading: 20, bottom: 0, trailing: 20 ))
             Button(action: registerAction,
                    label: { Text("Register")})
@@ -49,9 +50,16 @@ struct RegisterView: View {
             Spacer()
         }
         .navigationTitle("Register")
+        .alert(item: $VM.activeAlert) { alertItem in alertItem.alert }
+        .loadingView(show: $VM.isLoading)
+        .onAppear {
+           VM.goBack = { path.removeLast() }
+        }
     }
     
-    private func registerAction(){ print("Error") }
+    private func registerAction() {
+        VM.sendRegister()
+    }
     
 }
 
