@@ -26,7 +26,6 @@ class AlertsViewModel: BaseViewModel {
         self.locationManager = locationManager
         self.service = service
         super.init()
-        self.authorizationStatus = self.locationManager.authorizationStatus ?? .notDetermined
         setupAuthorizationListener()
     }
     

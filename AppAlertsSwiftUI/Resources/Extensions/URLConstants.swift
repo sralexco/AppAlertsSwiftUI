@@ -29,6 +29,10 @@ struct AppURL {
     static let listAlerts = BaseURL + "alert/list"
     static let myAlerts = BaseURL + "alert/mylist"
     
+    
+    static func getAlert(id: String) -> String {
+        return BaseURL + "alert/" + id + "/show"
+    }
     /*
     static let alerts = BaseURL + "alert/list"
     
