@@ -49,7 +49,7 @@ struct DetailAlertView: View {
                 .background(.white)
                 .padding([.leading, .trailing], 20)
             }
-            .padding(.top, 70)
+            .padding(.top, 10)
             Spacer().frame(height: 0)
         }
         .background(Color.blue1.opacity(0.20))
@@ -59,18 +59,18 @@ struct DetailAlertView: View {
             VM.id = self.alertID
             VM.requestGetAlert()
         }
-        .navigationBarHidden(true)
+        .navigationTitle("Detail")
+        //.navigationBarHidden(true)
         .alert(item: $VM.activeAlert) { alertItem in alertItem.alert }
         .loadingView(show: $VM.isLoading)
         
     }
 }
 
-
 struct ImageCell: View {
     var image: Image
     var body: some View {
-        VStack() {
+        VStack {
             image
                 .resizable()
                 .frame(maxWidth: .infinity)

@@ -16,8 +16,6 @@ class DetailAlertService: DetailAlertServiceProtocol {
     
     func getAlert(id: String) async throws -> DetailAlertModel {
         let url = AppURL.getAlert(id: id)
-        //let params = DetailAlertRequest(lat: lat, lon: lon, date: date).params()
         return try await Service().request(url: url, method: .post, params: nil)
    }
 }
-

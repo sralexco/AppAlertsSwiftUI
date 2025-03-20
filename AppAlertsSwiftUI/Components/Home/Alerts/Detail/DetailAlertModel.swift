@@ -22,6 +22,6 @@ struct DataDetailAlertModel: Codable {
     var country: String
     var city: String
     var image: String
-    var type:String
-    var author:String
+    var type: String
+    var author: String
 }

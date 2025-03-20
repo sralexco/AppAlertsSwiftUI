@@ -13,7 +13,7 @@ enum Route: Hashable {
    // case choiseLocation
 }
 
-struct Alerts: View {
+struct AlertsView: View {
     @StateObject var VM = AlertsViewModel()
     @State private var path = [Route]()
     var title = "Alerts"
@@ -30,7 +30,7 @@ struct Alerts: View {
                 AlertInfoView(text: "No alerts yet")
             }
             List {
-                ForEach(VM.items, id: \.id){ alert in
+                ForEach(VM.items, id: \.id) { alert in
                     AlertView(alert: alert)
                         .onTapGesture {
                             print("tap")
@@ -41,8 +41,10 @@ struct Alerts: View {
                 }
             }
         }
+        .navigationBarHidden(true)
+        .overlay { NavigationBar(title: title, showLeft: false) }
         .onAppear { VM.getAuthorizationLocation() }
-        .navigationTitle("")
+        .navigationTitle("Alerts")
         .navigationDestination(for: Route.self) { route in
             switch route {
             case let .detail(id):
@@ -56,5 +58,5 @@ struct Alerts: View {
 }
 
 #Preview {
-    Alerts()
+    AlertsView()
 }

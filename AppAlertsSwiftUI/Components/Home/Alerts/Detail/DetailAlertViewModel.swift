@@ -16,12 +16,14 @@ class DetailAlertViewModel: BaseViewModel {
     @Published var image: String = ""
     @Published var type: String = ""
     @Published var author: String = ""
-    
     @Published var isLoading: Bool = false
+    private var service: DetailAlertServiceProtocol
     
-    var service: DetailAlertServiceProtocol = DetailAlertService.shared
+    init(service: DetailAlertServiceProtocol = DetailAlertService.shared) {
+        self.service = service
+    }
     
-    func requestGetAlert(){
+    func requestGetAlert() {
         isLoading = true
         Task {
         do {
@@ -37,7 +39,7 @@ class DetailAlertViewModel: BaseViewModel {
                     date = Date().byFormat(format: "dd/MM/YY HH:mm", date: localDate)
                     address = alert.city + " - " + alert.country
                     
-                    image = alert.image  
+                    image = alert.image
                     type = alert.type
                     author = alert.author
                 } else {

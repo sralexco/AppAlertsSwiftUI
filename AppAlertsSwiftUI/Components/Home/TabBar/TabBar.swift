@@ -17,7 +17,7 @@ struct TabBar: View {
     
     var body: some View {
         TabView {
-            Alerts()
+            AlertsView()
                 .tabItem {
                     Label("Alerts", systemImage: "list.bullet")
                 }
