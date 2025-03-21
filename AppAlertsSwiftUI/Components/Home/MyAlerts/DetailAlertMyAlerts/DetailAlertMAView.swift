@@ -41,7 +41,7 @@ struct DetailAlertMAView: View {
                         if VM.image != "" {
                             if let uiImage = VM.image.imageFromBase64 {
                                 let photoImage = Image(uiImage: uiImage)
-                                ImageCell2(image: photoImage)
+                                ImageCellTwo(image: photoImage)
                             }
                         }
                     }
@@ -70,7 +70,7 @@ struct DetailAlertMAView: View {
     }
 }
 
-struct ImageCell2: View {
+struct ImageCellTwo: View {
     var image: Image
     var body: some View {
         VStack {

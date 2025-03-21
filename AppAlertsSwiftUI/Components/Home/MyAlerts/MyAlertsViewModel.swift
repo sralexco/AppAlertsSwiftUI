@@ -46,4 +46,28 @@ class MyAlertsViewModel: BaseViewModel {
         }
     }
     
+    func requestDeleteAlert(id:Int) {
+        isLoading = true
+        Task {
+        do {
+            let obj = try await service.deleteAlert(idAlert:"\(id)")
+            await MainActor.run {
+                if obj.status {
+                    if let index = self.items.firstIndex(where: { $0.id == id }) {
+                        items.remove(at: index)
+                    }
+                } else {
+                    showAlert(title: "Error", message: "Try again more Later")
+                }
+                isLoading = false
+            }
+        } catch {
+            await MainActor.run {
+                showAlert(title: "Error", message: error.localizedDescription)
+                isLoading = false
+            }
+        }
+        }
+    }
+    
 }

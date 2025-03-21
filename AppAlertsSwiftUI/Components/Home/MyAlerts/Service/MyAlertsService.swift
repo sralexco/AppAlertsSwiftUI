@@ -9,6 +9,7 @@ import Alamofire
 
 protocol MyAlertsServiceProtocol {
     func myAlerts(idUser: String) async throws -> MyAlertsModel
+    func deleteAlert(idAlert: String) async throws -> DeleteAlertMAModel
 }
 
 class MyAlertsService: MyAlertsServiceProtocol {
@@ -19,6 +20,12 @@ class MyAlertsService: MyAlertsServiceProtocol {
         let params = MyAlertsRequest(idUser: idUser).params()
         return try await Service().request(url: url, method: .post, params: params)
    }
+    
+    func deleteAlert(idAlert: String) async throws -> DeleteAlertMAModel {
+        let url = AppURL.deleteAlert(id: idAlert)
+        return try await Service().request(url: url, method: .post, params: nil)
+   }
+    
 }
 
 struct MyAlertsRequest: RequestParams {

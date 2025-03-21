@@ -26,9 +26,16 @@ struct MyAlertsView: View {
                 if VM.isEmpty {
                     AlertInfoView(text: "No alerts yet")
                 }
-                VStack{
+                VStack {
                     ForEach(VM.items, id: \.id) { alert in
+                    
                         AlertMAView(alert: alert)
+                            .contextMenu {
+                                Button(action: { editAction(id: alert.id) },
+                                       label: { Text("Edit")})
+                                Button(action: { deleteAction(id: alert.id) },
+                                       label: { Text("Delete")})
+                            }
                             .onTapGesture {
                                 path.append(MyAlertsRoute.detail(id: alert.id)) }
                             .listRowBackground(Color.clear)
@@ -50,4 +57,15 @@ struct MyAlertsView: View {
         }
         }
     }
+    
+    private func editAction(id: Int) {
+       // VM.requestEditAlert(id: id)
+    }
+    
+    private func deleteAction(id: Int) {
+        VM.requestDeleteAlert(id: id)
+    }
+    
+    
+    
 }

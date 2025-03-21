@@ -21,6 +21,10 @@ struct TabBar: View {
                 .tabItem {
                     Label("Alerts", systemImage: "list.bullet")
                 }*/
+           /* MyAlertsView()
+                .tabItem {
+                    Label("My Alerts", systemImage: "tray.full.fill")
+                } */
             MyAlertsView()
                 .tabItem {
                     Label("My Alerts", systemImage: "tray.full.fill")
