@@ -16,7 +16,6 @@ struct NavHeader: View {
         ZStack {
             Color.clear
                 .frame(height: interpolatedHeight())
-                .frame(height: interpolatedHeight())
                 .background(.ultraThinMaterial.opacity(opastyview()))
                 .blur(radius: 0.5)
                 .edgesIgnoringSafeArea(.top)
