@@ -10,7 +10,7 @@ import SwiftUI
 enum MyAlertsRoute: Hashable {
     case detail(id: Int)
     case add
-   // case choiseLocation
+    case choiseLocation
 }
 
 struct MyAlertsView: View {
@@ -53,6 +53,8 @@ struct MyAlertsView: View {
                     DetailAlertMAView(alertID: id, path: $path)
                 case .add:
                     CreateAlertView(path: $path)
+                case .choiseLocation:
+                    ChoiseLocation(path: $path)
                 }
             }
             .alert(item: $VM.activeAlert) { alertItem in alertItem.alert }

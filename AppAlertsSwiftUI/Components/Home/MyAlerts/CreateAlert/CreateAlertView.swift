@@ -50,6 +50,20 @@ struct CreateAlertView: View {
                     }
                 })
                     .padding(.init(top: 16, leading: 16, bottom: 0, trailing: 16 ))
+                
+                FloatingTextFieldAlter(title: "Location", isError: $VM.locationError, content: {
+                    Text(VM.location)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                       // .font(.roboto(.regular, size: 16))
+                        .foregroundColor(.black2)
+                        .background(.white)
+                        .padding(.top, 2)
+                        .onTapGesture {
+                            path.append(MyAlertsRoute.choiseLocation)
+                        }
+                }).frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.init(top: 10, leading: 16, bottom: 0, trailing: 16 ))
+                
                 FloatingTextFieldAlter(title: "Image", isError: $VM.imageError, content: {
                     PhotosPicker(
                         selection: $photoItem,

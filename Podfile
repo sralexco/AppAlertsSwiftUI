@@ -7,6 +7,8 @@ target 'AppAlertsSwiftUI' do
 
   # Pods for Alertize
   pod 'Alamofire'
+  pod 'GoogleMaps'
+  pod 'GooglePlaces'
 
   target 'AppAlertsSwiftUITests' do
     inherit! :search_paths
