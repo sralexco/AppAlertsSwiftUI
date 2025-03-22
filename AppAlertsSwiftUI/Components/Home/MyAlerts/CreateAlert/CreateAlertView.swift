@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import PhotosUI
+import Combine
 
 struct CreateAlertView: View {
     @Binding var path: [MyAlertsRoute]
     @StateObject var VM = CreateAlertViewModel()
+    @State private var photoItem: PhotosPickerItem?
     var title = "Create Alert"
     
     var body: some View {
@@ -47,6 +50,41 @@ struct CreateAlertView: View {
                     }
                 })
                     .padding(.init(top: 16, leading: 16, bottom: 0, trailing: 16 ))
+                FloatingTextFieldAlter(title: "Image", isError: $VM.imageError, content: {
+                    PhotosPicker(
+                        selection: $photoItem,
+                        matching: .images,
+                        photoLibrary: .shared()) {
+                            Text(VM.textImage)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .font(.system(size: 16, weight: .regular))
+                                .foregroundColor(.black2)
+                                .background(.white)
+                                .padding(.top, 4)
+                        }
+                        .onChange(of: photoItem) { newItem in
+                            Task {
+                                if let data = try? await photoItem?.loadTransferable(type: Data.self) {
+                                    if let uiImage = UIImage(data: data) {
+                                        VM.photoImage = Image(uiImage: uiImage)
+                                        VM.imageEncode = uiImage.toBase64(format: .jpeg(0.3))
+                                        VM.textImage = "Selected"
+                                        return
+                                    }
+                                }
+                                print("Failed")
+                            }
+                        }
+                }).padding(.init(top: 10, leading: 16, bottom: 0, trailing: 16 ))
+                
+                if let _ = VM.photoImage {
+                    VM.photoImage!
+                        .resizable()
+                        .frame(width: 160, height: 160)
+                        .padding(.leading, 16)
+                        .padding(.top, 10)
+                }
+                
                 Button(action: createAction,
                        label: { Text("Save")})
                     .customStyle(.primary)

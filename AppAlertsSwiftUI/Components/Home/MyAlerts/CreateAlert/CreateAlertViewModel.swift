@@ -25,7 +25,9 @@ class CreateAlertViewModel: BaseViewModel {
     @Published var selectedType = 0
     @Published var selectedTypeError: Bool = false
     
-    @Published var locationError: Bool = false
+    @Published var textImage: String = "Select a photo"
+    @Published var photoImage: Image?
+    @Published var imageEncode:String?
     @Published var imageError: Bool = false
     
     private var service: CreateAlertServiceProtocol
