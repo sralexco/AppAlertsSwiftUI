@@ -13,16 +13,16 @@ extension Notification.Name {
 
 struct ChoiseLocation: View {
     
-    @Binding var path:[MyAlertsRoute]
+    @Binding var path: [MyAlertsRoute]
     
     @State var hideDetail = true
-    @State var latitude:Double = 0
-    @State var longitude:Double = 0
+    @State var latitude: Double = 0
+    @State var longitude: Double = 0
     
     var title = "Choise Location"
     
     var body: some View {
-            ZStack(alignment: .center){
+            ZStack(alignment: .center) {
                 VStack(alignment: .center, spacing: 0){
                     Text("Alerts")
                         .frame(maxWidth: .infinity)
@@ -63,7 +63,7 @@ struct ChoiseLocation: View {
             }) }
     }
     
-    func acceptLocation(){
+    func acceptLocation() {
         NotificationCenter.default.post(name: NSNotification.Name.choiseLocation,
                                         object: nil, userInfo: ["lat": latitude, "lon": longitude])
         path.removeLast()
