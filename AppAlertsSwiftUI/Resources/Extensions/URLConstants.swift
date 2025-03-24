@@ -42,13 +42,12 @@ struct AppURL {
     
     static let getAlertsType = BaseURL + "alertType/list"
     
-    /*
+
     static func getUser(id: String) -> String {
         return BaseURL + "user/" + id
     }
     static func updateUser(id: String) -> String {
         return BaseURL + "user/" + id + "/update"
     }
-    */
     
 }

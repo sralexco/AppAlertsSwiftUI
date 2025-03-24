@@ -12,12 +12,10 @@ struct ProfileModel: Codable {
 
 struct DataProfileModel: Codable {
     var id: Int
-    var title: String
-    var description: String
-    var date: String
-    var idAlertType: Int
-    var lat: String
-    var lon: String
+    var names: String
+    var email: String
+    var phone: String
+    var image: String
     var country: String
-    var city: String
+    var password: String
 }

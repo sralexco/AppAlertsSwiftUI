@@ -20,27 +20,19 @@ struct TabBar: View {
             /*AlertsView()
                 .tabItem {
                     Label("Alerts", systemImage: "list.bullet")
-                }*/
-           /* MyAlertsView()
-                .tabItem {
-                    Label("My Alerts", systemImage: "tray.full.fill")
-                } */
+                }
             MyAlertsView()
                 .tabItem {
                     Label("My Alerts", systemImage: "tray.full.fill")
                 }
-            /*MapAlerts()
+            MapView()
                 .tabItem {
                     Label("Map", systemImage: "map.fill")
-                }
-            MyAlerts()
-                .tabItem {
-                    Label("My Alerts", systemImage: "tray.full.fill")
-                }
-            Profile()
+                } */
+            ProfileView()
                 .tabItem {
                     Label("Profile", systemImage: "person.crop.circle")
-                } */
+                }
         }
     }
 }
