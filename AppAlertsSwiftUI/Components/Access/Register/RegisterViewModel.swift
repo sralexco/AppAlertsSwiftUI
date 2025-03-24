@@ -18,6 +18,7 @@ class RegisterViewModel: BaseViewModel {
     @Published var passError: Bool = false
     @Published var phone: String = ""
     @Published var phoneError: Bool = false
+    
     @Published var country: String = ""
     @Published var countryError: Bool = false
     @Published var countries: [Country] = []

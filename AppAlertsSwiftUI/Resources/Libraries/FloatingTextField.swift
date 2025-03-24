@@ -192,3 +192,33 @@ struct FloatingTextFieldAlterTwo: View {
         }
     }
 }
+
+
+/*
+struct FloatingTextFieldAlterThree<Content: View>: View {
+    var title: String
+    @Binding var isError: Bool
+    @Binding var isDisabled : Bool
+    var requireValidation: Bool = true
+    var content: () -> Content
+    
+    init(title: String, isError: Binding<Bool>, @ViewBuilder content: @escaping () -> Content) {
+          self.title = title
+          self._isError = isError
+          self.content = content
+     }
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            Text(title)
+                .font(.system(size: 14, weight: .regular))
+                .foregroundColor(.blue1)
+            content()
+                
+            Rectangle().fill(isError ? Color.red : Color.gray2).opacity(0.6)
+                .frame(height: 1)
+                .padding(.top, 3)
+        }
+    }
+}
+*/

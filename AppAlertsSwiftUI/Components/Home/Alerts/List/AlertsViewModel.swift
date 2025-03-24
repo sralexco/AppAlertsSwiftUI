@@ -48,17 +48,17 @@ class AlertsViewModel: BaseViewModel {
     // Service
     func sendListAlerts() {
         isLoading = true
-       // let date = Date().getFormattedDate(format: "yyyy-MM-dd")
-        //let lat: String = "\(locationManager.manager.location?.coordinate.latitude ?? 0.0)"
-        //let lon: String = "\(locationManager.manager.location?.coordinate.longitude ?? 0.0)"
-        let lat: String = "-11.9431"
+        let date = Date().getFormattedDate(format: "yyyy-MM-dd")
+        let lat: String = "\(locationManager.manager.location?.coordinate.latitude ?? 0.0)"
+        let lon: String = "\(locationManager.manager.location?.coordinate.longitude ?? 0.0)"
+        /*let lat: String = "-11.9431"
         let lon: String = "-76.9861"
         let date: String = "2025-03-19T01:15:27.000Z"
         
         print("latitudes")
         print("lat", lat)
         print("lon", lon)
-        print("date",date)
+        print("date",date) */
         
         
         Task {
@@ -68,10 +68,10 @@ class AlertsViewModel: BaseViewModel {
                 if obj.status {
                     isEmpty = obj.alerts?.count == 0 ? true : false
                     items = obj.alerts ?? []
-                    for i in 0...10 {
+                    /*for i in 0...10 {
                         items += obj.alerts ?? []
-                    }
-                    print("alerts", obj.alerts)
+                    } */
+                    //print("alerts", obj.alerts)
                 } else {
                     showAlert(title: "Error", message: "Try again more Later")
                 }

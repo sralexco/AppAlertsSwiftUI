@@ -14,10 +14,7 @@ struct ProfileView: View {
     @StateObject var VM = ProfileViewModel()
     
     var body: some View {
-        
-        
         VStack(alignment: .center) {
-            
             PhotosPicker(
                 selection: $photoItem,
                 matching: .images,
@@ -39,31 +36,69 @@ struct ProfileView: View {
                                 return
                             }
                         }
-                        print("Failed")
                     }
                 }
             
             FloatingTextFieldAlterTwo(title: "Names", text: $VM.names, isError: $VM.namesError, isDisabled: $VM.namesDisabled)
-                .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.init(top: 10, leading: 20, bottom: 0, trailing: 20 ))
             
             FloatingTextFieldAlterTwo(title: "Email", text: $VM.email, isError: $VM.emailError, isDisabled: $VM.emailDisabled)
-                .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.init(top: 10, leading: 20, bottom: 0, trailing: 20 ))
             
             FloatingTextFieldAlterTwo(title: "Password", text: $VM.pass, isError: $VM.passError, isDisabled: $VM.passDisabled, isSecure: true)
-                .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.init(top: 10, leading: 20, bottom: 0, trailing: 20 ))
             
             FloatingTextFieldAlterTwo(title: "Telephone", text: $VM.phone, isError: $VM.phoneError, isDisabled: $VM.phoneDisabled, keyboardType: .numberPad, isNumber: true)
-                .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.init(top: 10, leading: 20, bottom: 0, trailing: 20 ))
+          
+            FloatingTextFieldAlter(title: "Country", isError: $VM.countryError, content: {
+                Menu {
+                    Picker(selection: $VM.selectedCountry) {
+                        Text("Select Country").tag(-1)
+                        ForEach(0..<VM.countries.count, id: \.self) { i in
+                            Text(VM.countries[i].name).padding(.leading, -50)
+                        }
+                    } label: {}
+                        
+                } label: {
+                    if VM.selectedCountry == -1 {
+                        Text("Select Country")
+                            .customStyle(.placeholder)
+                            .padding(.top, 2)
+                    } else {
+                        Text(VM.countries[VM.selectedCountry].name)
+                            .customStyle(.textfield)
+                            .padding(.top, 2)
+                    }
+                }
+                .allowsHitTesting(!VM.countryDisabled)
+            })
+            .padding(.init(top: 10, leading: 20, bottom: 0, trailing: 20 ))
             
-            FloatingTextFieldAlterTwo(title: "Country", text: $VM.country, isError: $VM.countryError, isDisabled: $VM.countryDisabled)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.init(top: 10, leading: 20, bottom: 0, trailing: 20 ))
+            Button(action: updateAction, label: { Text("Update")})
+                .customStyle(.primary)
+                .padding(.top, 20)
+                .padding(.bottom, 20)
+            
+            Button(action: enableFieldsAction, label: { Text("Enable Fields")})
+                .customStyle(.primary)
+                .padding(.top, 20)
+                .padding(.bottom, 20)
+            
+            Spacer()
             
         }
+         .alert(item: $VM.activeAlert) { alertItem in alertItem.alert }
+         .loadingView(show: $VM.isLoading)
         
     }
+    
+    private func updateAction() {
+        VM.requestUpdateUser()
+    }
+    
+    private func enableFieldsAction() {
+        VM.enabledFields()
+    }
+    
 }

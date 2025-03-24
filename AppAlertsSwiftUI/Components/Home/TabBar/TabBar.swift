@@ -17,18 +17,18 @@ struct TabBar: View {
     
     var body: some View {
         TabView {
-            /*AlertsView()
+            AlertsView()
                 .tabItem {
                     Label("Alerts", systemImage: "list.bullet")
+                }
+            MapView()
+                .tabItem {
+                    Label("Map", systemImage: "map.fill")
                 }
             MyAlertsView()
                 .tabItem {
                     Label("My Alerts", systemImage: "tray.full.fill")
                 }
-            MapView()
-                .tabItem {
-                    Label("Map", systemImage: "map.fill")
-                } */
             ProfileView()
                 .tabItem {
                     Label("Profile", systemImage: "person.crop.circle")
