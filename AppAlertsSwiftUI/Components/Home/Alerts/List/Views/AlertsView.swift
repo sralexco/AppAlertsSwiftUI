@@ -51,7 +51,7 @@ struct AlertsView: View {
             }
             .alert(item: $VM.activeAlert) { alertItem in alertItem.alert }
             .loadingView(show: $VM.isLoading)
-        }
+        } iconAction: {  }
         }
     }
 }

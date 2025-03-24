@@ -51,7 +51,7 @@ struct EditAlertView: View {
                         .padding(.top, 10)
                 }
                 
-                Button(action: updateAction, label: { Text("Save")})
+                Button(action: updateAction, label: { Text("Update")})
                     .customStyle(.primary)
                     .padding(.top, 20)
                     .padding(.bottom, 20)
@@ -77,7 +77,7 @@ struct EditAlertView: View {
     }
     
     private func updateAction() {
-        //VM.requestUpdateAlert()
+        VM.requestUpdateAlert()
     }
     
     private func updateCoordinates(userInfo: [String: Any]) {

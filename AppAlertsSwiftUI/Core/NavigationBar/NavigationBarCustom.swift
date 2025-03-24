@@ -10,6 +10,7 @@ struct NavHeader: View {
     var scrollOffset: CGFloat
     var title:String
     var icon:String
+    var iconAction: () -> Void // Closure for the icon action
    //     .background(Color.blue1.opacity(0.20))
     
     var body: some View {
@@ -23,7 +24,12 @@ struct NavHeader: View {
                 Text(title).bold()
                     .font(.system(size: interpolatedOText()))
                 Spacer()
-                Image(systemName:icon).font(.system(size: iconsize()))
+                Button(action: iconAction) {
+                                   Image(systemName: icon)
+                                       .font(.system(size: iconsize()))
+                               }
+                               .buttonStyle(.plain)
+                //Image(systemName:icon).font(.system(size: iconsize()))
             }
             .offset(y:PushupOffset())
             .padding()
@@ -87,11 +93,14 @@ struct CustomNavView<Content: View > : View {
     var title: String
     var icon:String
     let content: Content
+    var iconAction: () -> Void
     @State private var scrollOffset: CGFloat = 0
-    init(title: String,icon:String,@ViewBuilder content: () -> Content) {
+    
+    init(title: String,icon:String,@ViewBuilder content: () -> Content, iconAction: @escaping () -> Void) {
         self.title = title
         self.icon = icon
         self.content = content()
+        self.iconAction = iconAction
     }
     var body: some View {
         
@@ -109,7 +118,7 @@ struct CustomNavView<Content: View > : View {
                 Color.clear.frame(height: 40)
             })
             .overlay {
-                NavHeader(scrollOffset: scrollOffset, title: title, icon: icon)
+                NavHeader(scrollOffset: scrollOffset, title: title, icon: icon, iconAction: iconAction)
             }
             
         }

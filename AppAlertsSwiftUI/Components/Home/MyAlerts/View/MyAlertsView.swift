@@ -22,7 +22,7 @@ struct MyAlertsView: View {
     
     var body: some View {
         NavigationStack(path: $path) {
-        CustomNavView(title: "My Alerts", icon: "person.circle") {
+            CustomNavView(title: "My Alerts", icon: "person.circle") {
             VStack(alignment: .center) {
                 if VM.isEmpty {
                     AlertInfoView(text: "No alerts yet")
@@ -38,9 +38,7 @@ struct MyAlertsView: View {
                                        label: { Text("Delete")})
                             }
                             .onTapGesture {
-                                path.append(MyAlertsRoute.edit(id: alert.id)) }
-                                //path.append(MyAlertsRoute.add) }
-                               // path.append(MyAlertsRoute.detail(id: alert.id)) }
+                               path.append(MyAlertsRoute.detail(id: alert.id)) }
                             .listRowBackground(Color.clear)
                             .listRowSeparator(.hidden)
                             .listRowInsets(.init(top: 0, leading: 0, bottom: 14, trailing: 0))
@@ -63,12 +61,14 @@ struct MyAlertsView: View {
             }
             .alert(item: $VM.activeAlert) { alertItem in alertItem.alert }
             .loadingView(show: $VM.isLoading)
+        } iconAction: {
+            path.append(MyAlertsRoute.add)
         }
         }
     }
     
     private func editAction(id: Int) {
-       // VM.requestEditAlert(id: id)
+        path.append(MyAlertsRoute.edit(id: id))
     }
     
     private func deleteAction(id: Int) {

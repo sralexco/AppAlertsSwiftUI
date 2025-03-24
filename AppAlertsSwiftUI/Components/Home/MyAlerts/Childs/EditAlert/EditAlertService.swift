@@ -7,6 +7,7 @@
 
 protocol EditAlertServiceProtocol {
     func getAlert(id: String) async throws -> EditAlertModel
+    func updateAlert(id: String, model: ParamsUAModel) async throws -> UpdateAlertModel
     func getAlertTypes() async throws -> AlertTypeModel
 }
 
@@ -15,11 +16,10 @@ class EditAlertService: EditAlertServiceProtocol {
     
     func getAlert(id: String) async throws -> EditAlertModel {
         let url = AppURL.getAlert(id: id)
-        //let params = EditAlertRequest(id: id).params()
         return try await Service().request(url: url, method: .post, params: nil)
    }
     
-    func updateeAlert(id:String, model: ParamsCAModel) async throws -> CreateAlertModel {
+    func updateAlert(id: String, model: ParamsUAModel) async throws -> UpdateAlertModel {
         let url = AppURL.updateAlert(id: id)
         let params = UpdateAlertRequest(model: model).params()
         return try await Service().request(url: url, method: .post, params: params)
@@ -32,7 +32,6 @@ class EditAlertService: EditAlertServiceProtocol {
 }
 
 struct ParamsUAModel {
-    let idUser: Int
     let title: String
     let description: String
     let idAlertType: Int
@@ -45,7 +44,7 @@ struct UpdateAlertRequest: RequestParams {
     let model: ParamsUAModel
     
     func params() -> Params {
-        return ["id_user": model.idUser,
+        return [
                 "title": model.title,
                 "description": model.description,
                 "id_alert_type": model.idAlertType,
