@@ -10,6 +10,7 @@ import SwiftUI
 enum MyAlertsRoute: Hashable {
     case detail(id: Int)
     case add
+    case edit(id: Int)
     case choiseLocation
 }
 
@@ -37,7 +38,8 @@ struct MyAlertsView: View {
                                        label: { Text("Delete")})
                             }
                             .onTapGesture {
-                                path.append(MyAlertsRoute.add) }
+                                path.append(MyAlertsRoute.edit(id: alert.id)) }
+                                //path.append(MyAlertsRoute.add) }
                                // path.append(MyAlertsRoute.detail(id: alert.id)) }
                             .listRowBackground(Color.clear)
                             .listRowSeparator(.hidden)
@@ -53,6 +55,8 @@ struct MyAlertsView: View {
                     DetailAlertMAView(alertID: id, path: $path)
                 case .add:
                     CreateAlertView(path: $path)
+                case let .edit(id):
+                    EditAlertView(alertId: id, path: $path)
                 case .choiseLocation:
                     ChoiseLocation(path: $path)
                 }
