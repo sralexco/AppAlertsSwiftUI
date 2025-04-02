@@ -8,8 +8,8 @@ import SwiftUI
 
 struct NavHeader: View {
     var scrollOffset: CGFloat
-    var title:String
-    var icon:String
+    var title: String
+    var icon: String
     var iconAction: () -> Void // Closure for the icon action
    //     .background(Color.blue1.opacity(0.20))
     
@@ -88,7 +88,6 @@ struct NavHeader: View {
        }
 }
 
- 
 struct CustomNavView<Content: View > : View {
     var title: String
     var icon:String
@@ -103,7 +102,22 @@ struct CustomNavView<Content: View > : View {
         self.iconAction = iconAction
     }
     var body: some View {
+        GeometryReader { geo in
+                VStack(spacing: 0) { // Use VStack to keep layout stable
+                    NavHeader(scrollOffset: scrollOffset, title: title, icon: icon, iconAction: iconAction)
+                    
+                    content // List will handle scrolling naturally
+                        .background(GeometryReader { innerGeo in
+                            Color.clear
+                                .preference(key: ViewOffsetKey.self, value: innerGeo.frame(in: .global).minY)
+                        })
+                        .onPreferenceChange(ViewOffsetKey.self) { offset in
+                            self.scrollOffset = offset - geo.safeAreaInsets.top
+                        }
+                }
+            }
         
+      /*
         GeometryReader{ geo in
             ScrollView {
                 ScrollOffsetBackground { offset in
@@ -121,7 +135,7 @@ struct CustomNavView<Content: View > : View {
                 NavHeader(scrollOffset: scrollOffset, title: title, icon: icon, iconAction: iconAction)
             }
             
-        }
+        } */
     }
 }
 struct ScrollOffsetBackground: View {

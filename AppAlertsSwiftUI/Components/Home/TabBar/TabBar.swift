@@ -9,6 +9,8 @@ import SwiftUI
 
 struct TabBar: View {
     
+    @StateObject var loadingManager = LoadingManager()
+    
     let appearance: UITabBarAppearance = UITabBarAppearance()
     init() {
         UITabBar.appearance().barTintColor = .white
@@ -16,24 +18,29 @@ struct TabBar: View {
     }
     
     var body: some View {
-        TabView {
-            AlertsView()
-                .tabItem {
-                    Label("Alerts", systemImage: "list.bullet")
-                }
-            MapView()
-                .tabItem {
-                    Label("Map", systemImage: "map.fill")
-                }
-            MyAlertsView()
-                .tabItem {
-                    Label("My Alerts", systemImage: "tray.full.fill")
-                }
-            ProfileView()
-                .tabItem {
-                    Label("Profile", systemImage: "person.crop.circle")
-                }
+        ZStack {
+            TabView {
+                AlertsView()
+                    .tabItem {
+                        Label("Alerts", systemImage: "list.bullet")
+                    }
+                MapView()
+                    .tabItem {
+                        Label("Map", systemImage: "map.fill")
+                    }
+                MyAlertsView()
+                    .tabItem {
+                        Label("My Alerts", systemImage: "tray.full.fill")
+                    }
+                ProfileView()
+                    .tabItem {
+                        Label("Profile", systemImage: "person.crop.circle")
+                    }
+            }
+           
         }
+        .loadingView()
+        .environmentObject(loadingManager)
     }
 }
 

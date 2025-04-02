@@ -17,19 +17,22 @@ enum MyAlertsRoute: Hashable {
 struct MyAlertsView: View {
     @StateObject var VM = MyAlertsViewModel()
     @State private var path = [MyAlertsRoute]()
+    @EnvironmentObject var loadingManager: LoadingManager
     var title = "Alerts"
     init() { UIScrollView.appearance().bounces = false }
     
     var body: some View {
         NavigationStack(path: $path) {
-            CustomNavView(title: "My Alerts", icon: "person.circle") {
-            VStack(alignment: .center) {
+            ZStack {
                 if VM.isEmpty {
                     AlertInfoView(text: "No alerts yet")
                 }
+                
                 VStack {
-                    ForEach(VM.items, id: \.id) { alert in
-                    
+                    ProNavBar(title: "My Alerts", hasRightOptions: true, imageRight: "ic_add", callbackRight: {
+                        path.append(MyAlertsRoute.add)
+                    })
+                    List(VM.items, id: \.id) { alert in
                         AlertMAView(alert: alert)
                             .contextMenu {
                                 Button(action: { editAction(id: alert.id) },
@@ -38,14 +41,17 @@ struct MyAlertsView: View {
                                        label: { Text("Delete")})
                             }
                             .onTapGesture {
-                               path.append(MyAlertsRoute.detail(id: alert.id)) }
-                            .listRowBackground(Color.clear)
+                                path.append(MyAlertsRoute.detail(id: alert.id)) }
                             .listRowSeparator(.hidden)
-                            .listRowInsets(.init(top: 0, leading: 0, bottom: 14, trailing: 0))
+                            .listRowInsets(.init(top: 10, leading: 10,
+                                                 bottom: alert.id == VM.items.last?.id ? 10 : 0,
+                                                 trailing: 10))
+                            .listRowBackground(Color.clear)
                     }
-                }.padding(.top, 10)
+                    .listStyle(.plain)
+                    .background(Color.blue1.opacity(0.20))
+                }
             }
-            .background(Color.blue1.opacity(0.20))
             .onAppear { VM.requestMyAlerts() }
             .navigationDestination(for: MyAlertsRoute.self) { route in
                 switch route {
@@ -60,10 +66,7 @@ struct MyAlertsView: View {
                 }
             }
             .alert(item: $VM.activeAlert) { alertItem in alertItem.alert }
-            .loadingView(show: $VM.isLoading)
-        } iconAction: {
-            path.append(MyAlertsRoute.add)
-        }
+            .onChange(of: VM.isLoading) { _, newValue in loadingManager.isLoading = newValue }
         }
     }
     

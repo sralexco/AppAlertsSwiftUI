@@ -7,30 +7,55 @@
 
 import SwiftUI
 
+class LoadingManager: ObservableObject {
+    @Published var isLoading: Bool = false
+}
+
 struct LoadingViewModifier: ViewModifier {
-    @Binding var isLoading: Bool
+    @EnvironmentObject var loadingManager: LoadingManager
+    @State private var isActuallyLoading: Bool = false
     
     func body(content: Content) -> some View {
         ZStack {
             content
-                .disabled(isLoading)
+                .disabled(isActuallyLoading)
             
-            if isLoading {
-                Color.black.opacity(0.4)
+            if isActuallyLoading {
+               Color.black.opacity(0.4)
                     .edgesIgnoringSafeArea(.all)
-                
-                ActivityIndicator()
-                    .frame(width: 160, height: 160)
-                    .foregroundColor(Color.blue1)
-                
+                    .zIndex(4)
+                VStack {
+                    Spacer()
+                    ActivityIndicator()
+                        .frame(width: 160, height: 160)
+                        .foregroundColor(Color.blue1)
+                    Spacer()
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background( Color.black.opacity(0.4) )
+             
+            }
+        }
+        .zIndex(3)
+        .background(.green)
+        .onChange(of: loadingManager.isLoading) { _, newValue in
+            if newValue {
+                isActuallyLoading = true
+            } else {
+                Task {
+                    try? await Task.sleep(nanoseconds: 500_000_000)
+                    withAnimation {
+                        isActuallyLoading = false
+                    }
+                }
             }
         }
     }
 }
 
 extension View {
-    func loadingView(show: Binding<Bool>) -> some View {
-        self.modifier(LoadingViewModifier(isLoading: show))
+    func loadingView() -> some View {
+        self.modifier(LoadingViewModifier())
     }
 }
 
