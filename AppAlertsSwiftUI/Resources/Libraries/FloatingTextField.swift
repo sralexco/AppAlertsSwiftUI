@@ -29,8 +29,8 @@ struct FloatingTextField: View {
                         .font(.system(size: 16, weight: .regular))
                         .padding(.top, 2)
                         .keyboardType(keyboardType)
-                        .onChange(of: text) {
-                            if $0 != "" && requireValidation == true {
+                        .onChange(of: text) { _, newValue in
+                            if newValue != "" && requireValidation == true {
                                 isError = false
                             } else {
                                 isError = true
@@ -42,8 +42,8 @@ struct FloatingTextField: View {
                         .font(.system(size: 16, weight: .regular))
                         .padding(.top, 2)
                         .keyboardType(keyboardType)
-                        .onChange(of: text) {
-                            if $0 != "" && requireValidation == true {
+                        .onChange(of: text) { _, newValue in
+                            if newValue != "" && requireValidation == true {
                                 isError = false
                             } else {
                                 isError = true
@@ -67,8 +67,8 @@ struct FloatingTextField: View {
                     .font(.system(size: 16, weight: .regular))
                     .padding(.top, 2)
                     .keyboardType(keyboardType)
-                    .onChange(of: text) {
-                        if $0 != "" && requireValidation == true {
+                    .onChange(of: text) { _, newValue in
+                        if newValue != "" && requireValidation == true {
                             isError = false
                         } else {
                             isError = true
@@ -108,13 +108,12 @@ struct FloatingTextFieldAlter<Content: View>: View {
     }
 }
 
-
 struct FloatingTextFieldAlterTwo: View {
     let title: String
-    @Binding var text :String
-    @Binding var isError : Bool
-    @Binding var isDisabled : Bool
-    var requireValidation : Bool = true
+    @Binding var text: String
+    @Binding var isError: Bool
+    @Binding var isDisabled: Bool
+    var requireValidation: Bool = true
     var keyboardType = UIKeyboardType.default
     var isSecure = false
     var isNumber = false
@@ -133,8 +132,8 @@ struct FloatingTextFieldAlterTwo: View {
                         .font(.system(size: 16, weight: .regular))
                         .padding(.top, 2)
                         .keyboardType(keyboardType)
-                        .onChange(of: text) {
-                            if $0 != "" && requireValidation == true {
+                        .onChange(of: text) { _, value in
+                            if value != "" && requireValidation == true {
                                 isError = false
                             } else {
                                 isError = true
@@ -147,8 +146,8 @@ struct FloatingTextFieldAlterTwo: View {
                         .font(.system(size: 16, weight: .regular))
                         .padding(.top, 2)
                         .keyboardType(keyboardType)
-                        .onChange(of: text) {
-                            if $0 != "" && requireValidation == true {
+                        .onChange(of: text) { _, value in
+                            if value != "" && requireValidation == true {
                                 isError = false
                             } else {
                                 isError = true
@@ -176,8 +175,8 @@ struct FloatingTextFieldAlterTwo: View {
                     .font(.system(size: 16, weight: .regular))
                     .padding(.top, 2)
                     .keyboardType(keyboardType)
-                    .onChange(of: text) {
-                        if $0 != "" && requireValidation == true {
+                    .onChange(of: text) { _, newValue in
+                        if newValue != "" && requireValidation == true {
                             isError = false
                         } else {
                             isError = true
@@ -192,33 +191,3 @@ struct FloatingTextFieldAlterTwo: View {
         }
     }
 }
-
-
-/*
-struct FloatingTextFieldAlterThree<Content: View>: View {
-    var title: String
-    @Binding var isError: Bool
-    @Binding var isDisabled : Bool
-    var requireValidation: Bool = true
-    var content: () -> Content
-    
-    init(title: String, isError: Binding<Bool>, @ViewBuilder content: @escaping () -> Content) {
-          self.title = title
-          self._isError = isError
-          self.content = content
-     }
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            Text(title)
-                .font(.system(size: 14, weight: .regular))
-                .foregroundColor(.blue1)
-            content()
-                
-            Rectangle().fill(isError ? Color.red : Color.gray2).opacity(0.6)
-                .frame(height: 1)
-                .padding(.top, 3)
-        }
-    }
-}
-*/

@@ -48,7 +48,6 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         print("error: \(error.localizedDescription)")
     }
 
-
     var latitude: CLLocationDegrees {
         return  0
     }
@@ -58,4 +57,3 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
     
 }
-
