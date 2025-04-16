@@ -21,7 +21,8 @@ This project allows anyone, anywhere in the world, to add and share alerts relat
 [Watch the video](https://www.youtube.com/watch?v=yC2_sMXNDKs&t=455s)
 
 [![Watch the video](https://img.youtube.com/vi/yC2_sMXNDKs&t=455s/0.jpg)](https://www.youtube.com/watch?v=yC2_sMXNDKs&t=455s)
-<iframe width="560" height="315" src="https://www.youtube.com/embed/yC2_sMXNDKs" frameborder="0" allowfullscreen></iframe>
+
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/yC2_sMXNDKs/0.jpg)](https://www.youtube.com/watch?v=yC2_sMXNDKs)
 
 ## 📌 Usage
 ### Allow location permissions.
