@@ -8,6 +8,19 @@ This project allows anyone, anywhere in the world, to add and share alerts relat
 ✅ **My Alerts** – Can see a list of my alerts created for myself, can add, edit, update and delete alerts.  
 ✅ **Profile** – Can update the profile.  
 
+## 🛠 Tech Stack
+- **Swift 6**
+- **SwiftUI** – UI framework
+- **SwiftData** – Persistent storage
+- **CoreLocation** – GPS tracking
+- **Swift Concurrency** – Async/Await for background processing
+- **GMaps** - Map SDK
+
+## 🛠 Video
+- **Swift 6**
+[Watch the video](https://www.youtube.com/watch?v=yC2_sMXNDKs&t=455s)
+
+
 ## 📌 Usage
 ### Allow location permissions.
 1. Create a User
@@ -21,10 +34,3 @@ This project allows anyone, anywhere in the world, to add and share alerts relat
 
 ---
 
-## 🛠 Tech Stack
-- **Swift 6**
-- **SwiftUI** – UI framework
-- **SwiftData** – Persistent storage
-- **CoreLocation** – GPS tracking
-- **Swift Concurrency** – Async/Await for background processing
-- **GMaps** - Map SDK
