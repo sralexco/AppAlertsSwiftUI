@@ -17,7 +17,6 @@ This project allows anyone, anywhere in the world, to add and share alerts relat
 - **GMaps** - Map SDK
 
 ## 🛠 Video
-- **Swift 6**
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/yC2_sMXNDKs/0.jpg)](https://www.youtube.com/watch?v=yC2_sMXNDKs)
 
 ## 📌 Usage
@@ -26,10 +25,11 @@ This project allows anyone, anywhere in the world, to add and share alerts relat
 1. Allow location permissions when using the app or always.
 
 ### **Create Alert**
-1. Tap the `+` button in the navigation bar.
-2. Tap `Start` to begin tracking.
-3. Move around to record distance.
-**(If running in iOS Simulator go to Debug → Location and select: City Bicycle Ride, City Run or Freeway Drive before tapping start).**
+1. Tap the `+` button in the tab myAlerts after login.
+2. Insert all the data required (title, description, typeAlert, choise location in the map).
+3. Choise location in the map
+4. Save the Alert
+5. Go to myAlerts to see the new alert created.
 
 ---
 
