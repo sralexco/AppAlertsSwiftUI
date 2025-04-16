@@ -2,11 +2,11 @@
 This project allows anyone, anywhere in the world, to add and share alerts related to natural disasters, theft, tornadoes, and more. It is a personal initiative I created to support communities by providing real-time, user-generated alerts. 
 
 ## 📌 Features
-✅ **Create Users** – People can register account.  
-✅ **List Alerts** – Can see all the alert in a list are close to your location, can choose someone and see more details.  
-✅ **Map Alerts** – Can se in a google map, the whole alerts in markers, can open a detail of any alerts.  
-✅ **My Alerts** – Can see a list of my alerts created for myself, can add, edit, update and delete alerts.  
-✅ **Profile** – Can update the profile.  
+✅ **Create Users** – People can register an account.  
+✅ **List Alerts** – Users can see all alerts near their location in a list, choose one, and view more details. 
+✅ **Map Alerts** –  Users can see all alerts as markers on a Google Map and view the details of any alert.
+✅ **My Alerts** –  Users can see a list of their own alerts, and can add, edit, update, or delete them.
+✅ **Profile** – Users can update their profile.
 
 ## 🛠 Tech Stack
 - **Swift 6**
@@ -21,15 +21,15 @@ This project allows anyone, anywhere in the world, to add and share alerts relat
 
 ## 📌 Usage
 ### Allow location permissions.
-1. Create a User
-1. Allow location permissions when using the app or always.
+1. Create a User Account.
+1. Allow location permissions when using the app or set it to "Always."
 
 ### **Create Alert**
-1. Tap the `+` button in the tab myAlerts after login.
-2. Insert all the data required (title, description, typeAlert, choise location in the map).
-3. Choise location in the map
-4. Save the Alert
-5. Go to myAlerts to see the new alert created.
+1. Tap the `+` button in the My Alerts tab after logging in.
+2. Enter all the required information (title, description, alert type, and choose a location on the map).
+3. Choose a location on the map.
+4. Save the alert.
+5. Go to My Alerts to see the newly created alert.
 
 ---
 
