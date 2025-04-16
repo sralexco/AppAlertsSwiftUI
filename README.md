@@ -20,6 +20,7 @@ This project allows anyone, anywhere in the world, to add and share alerts relat
 - **Swift 6**
 [Watch the video](https://www.youtube.com/watch?v=yC2_sMXNDKs&t=455s)
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/yC2_sMXNDKs" frameborder="0" allowfullscreen></iframe>
 
 ## 📌 Usage
 ### Allow location permissions.
