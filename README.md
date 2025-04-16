@@ -10,11 +10,20 @@ This project allows anyone, anywhere in the world, to add and share alerts relat
 
 ## 🛠 Tech Stack
 - **Swift 6**
+- **MVVM**
 - **SwiftUI** – UI framework
 - **SwiftData** – Persistent storage
 - **CoreLocation** – GPS tracking
 - **Swift Concurrency** – Async/Await for background processing
 - **GMaps** - Map SDK
+- **Alamofire** – Library for handle API
+- **Notion** 
+- **Cocoapods** – Manager Dependency
+- **Githuby** – Repository
+- **GitHubActions** – Library for handle API
+- **SwifLint** 
+- **Scrum** – 
+- **Figma** – Desing UI/UX
 
 ## 🛠 Video
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/yC2_sMXNDKs/0.jpg)](https://www.youtube.com/watch?v=yC2_sMXNDKs)
