@@ -18,10 +18,6 @@ This project allows anyone, anywhere in the world, to add and share alerts relat
 
 ## 🛠 Video
 - **Swift 6**
-[Watch the video](https://www.youtube.com/watch?v=yC2_sMXNDKs&t=455s)
-
-[![Watch the video](https://img.youtube.com/vi/yC2_sMXNDKs&t=455s/0.jpg)](https://www.youtube.com/watch?v=yC2_sMXNDKs&t=455s)
-
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/yC2_sMXNDKs/0.jpg)](https://www.youtube.com/watch?v=yC2_sMXNDKs)
 
 ## 📌 Usage
