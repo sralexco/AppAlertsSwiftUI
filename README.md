@@ -1,4 +1,4 @@
-# 🚴AppAlertize
+# AppAlertize
 This project allows anyone, anywhere in the world, to add and share alerts related to natural disasters, theft, tornadoes, and more. It is a personal initiative I created to support communities by providing real-time, user-generated alerts. 
 
 ## 📌 Features
