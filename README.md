@@ -3,9 +3,9 @@ This project allows anyone, anywhere in the world, to add and share alerts relat
 
 ## 📌 Features
 ✅ **Create Users** – People can register an account.  
-✅ **List Alerts** – Users can see all alerts near their location in a list, choose one, and view more details. 
-✅ **Map Alerts** –  Users can see all alerts as markers on a Google Map and view the details of any alert.
-✅ **My Alerts** –  Users can see a list of their own alerts, and can add, edit, update, or delete them.
+✅ **List Alerts** – Users can see all alerts near their location in a list, choose one, and view more details.   
+✅ **Map Alerts** –  Users can see all alerts as markers on a Google Map and view the details of any alert.  
+✅ **My Alerts** –  Users can see a list of their own alerts, and can add, edit, update, or delete them.  
 ✅ **Profile** – Users can update their profile.
 
 ## 🛠 Tech Stack
