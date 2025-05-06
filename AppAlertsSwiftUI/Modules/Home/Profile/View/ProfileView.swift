@@ -16,7 +16,7 @@ struct ProfileView: View {
     
     var body: some View {
         VStack(alignment: .center) {
-            ProNavBar(title: "Profile", hasRightOptions: true, imageRight: "ic_edit", callbackRight: {
+            ProNavBar(title: "Profile", hasRightOptions: true, imageRight: "ic_logout", callbackRight: {
                logoutAction()
             })
             PhotosPicker(
@@ -80,11 +80,22 @@ struct ProfileView: View {
             })
             .padding(.init(top: 10, leading: 20, bottom: 0, trailing: 20 ))
             
-            Button(action: updateAction, label: { Text("Update")})
-                .customStyle(.primary)
-                .padding(.top, 20)
-                .padding(.bottom, 20)
-                .opacity(VM.hideUpdateButton ? 0 : 1 )
+            ZStack {
+                Button(action: editAction, label: { Text("Edit")})
+                    .customStyle(.primary)
+                    .padding(.top, 20)
+                    .padding(.bottom, 20)
+                    .opacity(VM.hideEditButton ? 0 : 1 )
+                
+                Button(action: updateAction, label: { Text("Update")})
+                    .customStyle(.primary)
+                    .padding(.top, 20)
+                    .padding(.bottom, 20)
+                    .opacity(VM.hideUpdateButton ? 0 : 1 )
+            }
+       
+            
+           
             
             Spacer()
             
@@ -95,15 +106,19 @@ struct ProfileView: View {
     }
     
     private func updateAction() {
+        print("Update actions")
         VM.requestUpdateUser()
     }
     
-    private func logoutAction(){
+    private func logoutAction() {
         VM.logout()
     }
     
-    /*private func enableFieldsAction() {
+    private func editAction() {
+        print("Edit actions")
+        VM.hideEditButton = true
+        VM.hideUpdateButton = false
         VM.enabledFields()
-    } */
+    }
     
 }

@@ -32,8 +32,6 @@ class Service {
     
     func request<T: Decodable>(url: String, method: HTTPMethod, params: Params? = nil) async throws -> T {
           let token = UserDefaults.standard.string(forKey: "token") ?? ""
-          print("token", token)
-          //let token = "oat_MQ.amJveVh1bm90VFdOeUwzeEgtS2lHZjQ0dlp0d2U1WVdsSmpLMGFjRzIwMTUxMjA4Nzk"
           let headers: HTTPHeaders = [
               "Accept": "application/json",
               "Content-Type": "application/json",

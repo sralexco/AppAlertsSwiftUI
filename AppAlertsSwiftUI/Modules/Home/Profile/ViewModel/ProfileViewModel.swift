@@ -27,6 +27,7 @@ class ProfileViewModel: BaseViewModel {
     @Published var passError: Bool = false
     @Published var passDisabled: Bool = true
     
+    @Published var hideEditButton: Bool = false
     @Published var hideUpdateButton: Bool = true
     
     @Published var photoImage: Image?
@@ -51,6 +52,14 @@ class ProfileViewModel: BaseViewModel {
         passDisabled = false
         countryDisabled = false
         hideUpdateButton = false
+    }
+    
+    func disableFields() {
+        namesDisabled = true
+        phoneDisabled = true
+        passDisabled = true
+        countryDisabled = true
+        hideUpdateButton = true
     }
     
     func getCountries() -> [Country] {
@@ -90,8 +99,7 @@ class ProfileViewModel: BaseViewModel {
     }
     
     func requestGetUser() {
-        print("Here")
-        let id = 1
+        let id = AppStorage().getUserID()
         isLoading = true
         Task {
         do {
@@ -149,6 +157,8 @@ class ProfileViewModel: BaseViewModel {
                     showAlert(title: "Error", message: "Try again more Later")
                 }
                 isLoading = false
+                hideEditButton = false
+                disableFields()
             }
         } catch {
             await MainActor.run {
@@ -159,7 +169,7 @@ class ProfileViewModel: BaseViewModel {
         }
     }
     
-    func logout(){
+    func logout() {
         NotificationCenter.default.post(name: NSNotification.Name.logout,
                                         object: nil, userInfo: [:])
     }
