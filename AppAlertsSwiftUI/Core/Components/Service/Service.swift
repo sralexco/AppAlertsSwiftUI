@@ -32,6 +32,7 @@ class Service {
     
     func request<T: Decodable>(url: String, method: HTTPMethod, params: Params? = nil) async throws -> T {
           let token = UserDefaults.standard.string(forKey: "token") ?? ""
+          print("token", token)
           //let token = "oat_MQ.amJveVh1bm90VFdOeUwzeEgtS2lHZjQ0dlp0d2U1WVdsSmpLMGFjRzIwMTUxMjA4Nzk"
           let headers: HTTPHeaders = [
               "Accept": "application/json",
@@ -52,6 +53,7 @@ class Service {
                          headers: headers)
                   .validate()
                   .responseDecodable(of: T.self) { response in
+                      print("The resposen", response)
                       switch response.result {
                       case .success(let value):
                           continuation.resume(returning: value)

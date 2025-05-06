@@ -21,6 +21,8 @@ class LoginViewModel: BaseViewModel {
     
     init(service: LoginServiceProtocol = LoginService.shared) {
         self.service = service
+        email = "gg@gmail.com"
+        pass = "1234"
     }
     
     func validateInputs() -> Bool {

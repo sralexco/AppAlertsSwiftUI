@@ -78,7 +78,8 @@ class CreateAlertViewModel: BaseViewModel {
     
     func requestCreateAlert() {
         guard validations() else { return showAlert(title: "Error", message: "Complete all the fields") }
-        let idUser = 1  // GG
+        let idUser = AppStorage().getUserID()
+        print(idUser)
         let date = Date().getFormattedDate(format: "yyyy-MM-dd HH:mm:ss")
         let type = types[selectedType]
         isLoading = true
