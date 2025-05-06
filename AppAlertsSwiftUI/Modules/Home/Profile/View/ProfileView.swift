@@ -17,7 +17,7 @@ struct ProfileView: View {
     var body: some View {
         VStack(alignment: .center) {
             ProNavBar(title: "Profile", hasRightOptions: true, imageRight: "ic_edit", callbackRight: {
-                enableFieldsAction()
+               logoutAction()
             })
             PhotosPicker(
                 selection: $photoItem,
@@ -98,8 +98,12 @@ struct ProfileView: View {
         VM.requestUpdateUser()
     }
     
-    private func enableFieldsAction() {
-        VM.enabledFields()
+    private func logoutAction(){
+        VM.logout()
     }
+    
+    /*private func enableFieldsAction() {
+        VM.enabledFields()
+    } */
     
 }

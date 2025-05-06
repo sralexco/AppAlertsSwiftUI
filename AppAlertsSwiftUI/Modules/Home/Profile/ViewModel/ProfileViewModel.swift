@@ -158,4 +158,14 @@ class ProfileViewModel: BaseViewModel {
         }
         }
     }
+    
+    func logout(){
+        NotificationCenter.default.post(name: NSNotification.Name.logout,
+                                        object: nil, userInfo: [:])
+    }
+}
+
+
+extension Notification.Name {
+    static let logout = Notification.Name("logout")
 }

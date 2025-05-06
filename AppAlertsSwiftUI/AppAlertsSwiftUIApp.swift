@@ -12,7 +12,8 @@ struct AppAlertsSwiftUIApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     var body: some Scene {
         WindowGroup {
-            TabBar()
+            //TabBar()
+            MainView()
         }
     }
 }

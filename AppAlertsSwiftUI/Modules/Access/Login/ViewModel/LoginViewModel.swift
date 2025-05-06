@@ -17,6 +17,8 @@ class LoginViewModel: BaseViewModel {
     @Published var isLoading = false
     var service: LoginServiceProtocol
     
+    var onLoginSuccess: (() -> Void)?
+    
     init(service: LoginServiceProtocol = LoginService.shared) {
         self.service = service
     }
@@ -45,6 +47,9 @@ class LoginViewModel: BaseViewModel {
                     UserDefaults.standard.set(token, forKey: "token")
                     UserDefaults.standard.set(idUser, forKey: "idUser")
                     UserDefaults.standard.set(true, forKey: "access")
+                    
+                    // Redirect To Home
+                    onLoginSuccess?()
                 } else {
                     showAlert(title: "Success", message: "Invalid username and password Please try again")
                 }

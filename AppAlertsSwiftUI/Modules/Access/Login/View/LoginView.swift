@@ -10,7 +10,7 @@ import SwiftUI
 struct LoginView: View {
     @StateObject var VM = LoginViewModel()
     @Binding var path: [RouteMain]
-    @EnvironmentObject var loadingManager: LoadingManager
+    @StateObject private var loadingManager = LoadingManager()
     
     var body: some View {
         VStack {
@@ -27,6 +27,11 @@ struct LoginView: View {
         .navigationTitle("Login")
         .alert(item: $VM.activeAlert) { alertItem in alertItem.alert }
         .onChange(of: VM.isLoading) { _, newValue in loadingManager.isLoading = newValue }
+        .onAppear {
+            VM.onLoginSuccess = {
+                path.removeLast()
+            }
+        }
     }
     private func loginAction() {
         VM.getLogin()
