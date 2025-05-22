@@ -80,7 +80,6 @@ class ProfileViewModel: BaseViewModel {
     func validations() -> Bool {
         var msgError = "Complete all the fields"
         namesError = names.isEmpty ? true : false
-        emailError  = email.isEmpty ? true : false
         phoneError = phone.isEmpty ? true : false
         
         if !pass.isEmpty {
@@ -91,12 +90,17 @@ class ProfileViewModel: BaseViewModel {
             passError = false
         }
         
-        if !phone.isEmpty, phone.contains(where: { $0.isLetter }) {
-            phoneError = true
-            msgError = "The phone only allow numbers"
+        if !names.isEmpty, names.contains(where: { $0.isNumber }) {
+            namesError = true
+            msgError = "Names can only contain letters"
         }
         
-        if !emailError && !passError && !namesError && !phoneError {
+        if !phone.isEmpty, phone.contains(where: { $0.isLetter }) {
+            phoneError = true
+            msgError = "Phone can only contain numbers"
+        }
+        
+        if !passError && !namesError && !phoneError {
             return true
         } else {
             showAlert(title: "Alert", message: msgError)
