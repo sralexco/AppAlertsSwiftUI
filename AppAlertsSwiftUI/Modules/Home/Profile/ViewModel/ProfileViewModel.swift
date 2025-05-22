@@ -78,6 +78,7 @@ class ProfileViewModel: BaseViewModel {
     }
     
     func validations() -> Bool {
+        var msgError = "Complete all the fields"
         namesError = names.isEmpty ? true : false
         emailError  = email.isEmpty ? true : false
         phoneError = phone.isEmpty ? true : false
@@ -90,10 +91,15 @@ class ProfileViewModel: BaseViewModel {
             passError = false
         }
         
+        if !phone.isEmpty, phone.contains(where: { $0.isLetter }) {
+            phoneError = true
+            msgError = "The phone only allow numbers"
+        }
+        
         if !emailError && !passError && !namesError && !phoneError {
             return true
         } else {
-            showAlert(title: "Alert", message: "Complete all the fields")
+            showAlert(title: "Alert", message: msgError)
             return false
         }
     }
@@ -138,7 +144,7 @@ class ProfileViewModel: BaseViewModel {
     
     func requestUpdateUser() {
         let id = 1
-        guard validations() else { return showAlert(title: "Error", message: "Complete all the fields") }
+        guard validations() else { return }
    
         let country = countries[selectedCountry].name
         
@@ -174,7 +180,6 @@ class ProfileViewModel: BaseViewModel {
                                         object: nil, userInfo: [:])
     }
 }
-
 
 extension Notification.Name {
     static let logout = Notification.Name("logout")
