@@ -27,9 +27,11 @@ struct AlertsView: View {
                     if VM.locationManager.authorizationStatus != .authorizedAlways &&
                         VM.locationManager.authorizationStatus != .authorizedWhenInUse {
                         AlertInfoView(text: "You need to to allow location in configuration")
+                            .padding(.top, 70)
                     }
                     if VM.isEmpty {
                         AlertInfoView(text: "No alerts yet")
+                            .padding(.top, 70)
                     }
                     VStack {
                             ProNavBar(title: "Alerts")
